@@ -12,7 +12,7 @@
       "question": "Which elements belong to the periodic table?",
       "options": [
         { "answer": "Amber", "correct": false },
-        { "answer": "Ruby", "correct": true },
+        { "answer": "Rubidium", "correct": true },
         { "answer": "Gold", "correct": true }
       ]
     }
