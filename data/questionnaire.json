@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "question": "Which are the primary colors?",
+      "options": [
+        { "answer": "Blue - Yellow - Red", "correct": true },
+        { "answer": "Blue - Green - Red", "correct": false },
+        { "answer": "Violet - Green - Red", "correct": false }
+      ]
+    },
+    {
+      "question": "Which elements belong to the periodic table?",
+      "options": [
+        { "answer": "Amber", "correct": false },
+        { "answer": "Ruby", "correct": true },
+        { "answer": "Gold", "correct": true }
+      ]
+    }
+  ]
+}
