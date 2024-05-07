@@ -1,5 +1,6 @@
 export type Question = {
   question: string;
+  isMultipleChoice: boolean;
   options: Option[];
 };
 
