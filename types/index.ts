@@ -8,3 +8,5 @@ export type Option = {
   answer: string;
   correct?: boolean;
 };
+
+export type UserAnswers = Record<number, string[]>;

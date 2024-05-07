@@ -5,7 +5,7 @@ import { useState } from "react";
 
 interface QuestionProps {
   question: TQuestion;
-  onSubmit: () => void;
+  onSubmit: (options: string[]) => void;
 }
 
 export default function Question({ question, onSubmit }: QuestionProps) {
@@ -32,7 +32,7 @@ export default function Question({ question, onSubmit }: QuestionProps) {
 
   const onQuestionSubmit = () => {
     if (selectedOptions.length) {
-      onSubmit();
+      onSubmit(selectedOptions);
     }
   };
 
@@ -48,6 +48,7 @@ export default function Question({ question, onSubmit }: QuestionProps) {
             onClick={() => onOptionToggled(option)}
           >
             <input
+              readOnly
               className="accent-amber-500"
               type={question.isMultipleChoice ? "checkbox" : "radio"}
               checked={selectedOptions.includes(option.answer)}

@@ -1,8 +1,10 @@
 "use client";
 
-import { Question as TQuestion } from "questionnaire/types";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+
+import { Question as TQuestion, UserAnswers } from "questionnaire/types";
 import Question from "./Question";
+import QuestionnaireResults from "./QuestionnaireResults";
 
 interface QuestionnaireProps {
   questionnaire: TQuestion[];
@@ -10,13 +12,27 @@ interface QuestionnaireProps {
 
 export default function Questionnaire({ questionnaire }: QuestionnaireProps) {
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [userAnwsers, setUserAnswers] = useState<UserAnswers>({});
 
-  const onQuestionSubmit = () => {
-    setQuestionIndex((prevQuestion) => prevQuestion + 1);
+  const isQuestionnaireComplete = userAnwsers[questionnaire.length - 1]?.length;
+
+  const onQuestionSubmit = (optionsSelected: string[]) => {
+    setUserAnswers((prevUserAnswers) => ({
+      ...prevUserAnswers,
+      [questionIndex]: optionsSelected,
+    }));
+
+    if (!isQuestionnaireComplete) {
+      setQuestionIndex((prevQuestion) => prevQuestion + 1);
+    }
   };
 
+  if (isQuestionnaireComplete) {
+    return <QuestionnaireResults userAnswers={userAnwsers} />;
+  }
+
   return (
-    <main className="flex items-start justify-center min-h-screen flex-col p-24">
+    <>
       <label>
         Question {questionIndex + 1} of {questionnaire.length}
       </label>
@@ -25,6 +41,6 @@ export default function Questionnaire({ questionnaire }: QuestionnaireProps) {
         question={questionnaire[questionIndex]}
         onSubmit={onQuestionSubmit}
       />
-    </main>
+    </>
   );
 }
