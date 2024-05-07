@@ -2,16 +2,21 @@ import questionnaire from "questionnaire/data/questionnaire.json";
 import { UserAnswers } from "questionnaire/types";
 
 export default function getUserScore(userAnswers: UserAnswers) {
-  const correctOptions = questionnaire.data.filter((question, index) => {
-    const correctAnswers = question.options.filter((option) => option.correct);
-    const mappedAnswers = correctAnswers.map((answer) => answer.answer);
+  const correctAnswers = questionnaire.data.filter((question, index) => {
+    const correctOptions = question.options.reduce((accum, option) => {
+      if (option.correct) {
+        return [...accum, option.answer];
+      }
+
+      return accum;
+    }, [] as string[]);
 
     return (
-      mappedAnswers.sort().toString() == userAnswers[index].sort().toString()
+      correctOptions.sort().toString() == userAnswers[index].sort().toString()
     );
   });
 
-  const correct = correctOptions.length;
+  const correct = correctAnswers.length;
 
   return {
     correct,
